@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState, useMemo, useCallback } from 'react';
 import './App.css';
+import { ChildComponent } from './ChildComponent';
 
 function App() {
   const [data, setData] = useState([]);
@@ -26,11 +27,9 @@ function App() {
   //   ref?.current.addEventListener('mouseover', () => {});
   // }
 
-  let fun2 = useCallback(() => {
-    heavy();
-  }, [count]);
+  //currently it is called for every change render happens in our application
+  let fun2 = heavy();
 
-  console.log(fun2, 'count');
   return (
     <div id="mainId">
       <div
@@ -54,12 +53,15 @@ function App() {
             onClick={() => {
               let newData = [...data, { id: 2, title: 'asd' }];
               setData(newData);
+              fun2();
             }}
           >
             {item.title}
           </div>
         );
       })}
+      <ChildComponent count={count} setCount= {setCount}/>
+      {count}
     </div>
   );
 }
