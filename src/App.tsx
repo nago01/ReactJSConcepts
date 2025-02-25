@@ -28,8 +28,8 @@ function App() {
   // }
 
   //currently it is called for every change render happens in our application
-  let fun2 = heavy();
-
+  let fun2 = useCallback(()=>{heavy()},[]);
+  
   return (
     <div id="mainId">
       <div
